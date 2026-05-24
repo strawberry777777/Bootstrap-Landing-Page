@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StrwbrY — Creative Studio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── VARIABLES ── */
+    :root {
+      --pink: #ff2d78;
+      --black: #0a0a0a;
+      --off-black: #111111;
+      --card-bg: #161616;
+      --text: #f0f0f0;
+      --muted: #888888;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1440px !important;
+      padding-left: clamp(1.5rem, 5vw, 6rem) !important;
+      padding-right: clamp(1.5rem, 5vw, 6rem) !important;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Syne', sans-serif; font-weight: 800; }
+
+    /* ══════════════════════════════════════
+       NAVBAR
+    ══════════════════════════════════════ */
+    .navbar {
+      background: var(--black) !important;
+      border-bottom: 2px solid var(--pink);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: #fff !important;
+      letter-spacing: -0.02em;
+    }
+    .navbar-brand span { color: var(--pink); }
+    .nav-link {
+      color: var(--muted) !important;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem !important;
+      transition: color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--pink) !important; }
+    .navbar-toggler {
+      border: 2px solid var(--pink) !important;
+      padding: 5px 10px;
+    }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23ff2d78' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+    .btn-nav-cta {
+      background: var(--pink) !important;
+      color: #fff !important;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.4rem !important;
+      border: 2px solid var(--pink);
+      transition: all 0.2s;
+    }
+    .btn-nav-cta:hover { background: transparent !important; color: var(--pink) !important; }
+
+    /* ══════════════════════════════════════
+       BUTTONS
+    ══════════════════════════════════════ */
+    .btn-pink {
+      background: var(--pink);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 16px 44px;
+      border: 2px solid var(--pink);
+      display: inline-block;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-pink:hover { background: transparent; color: var(--pink); }
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 16px 44px;
+      border: 2px solid #333;
+      display: inline-block;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--pink); color: var(--pink); }
+
+    /* ══════════════════════════════════════
+       SECTION SHARED
+    ══════════════════════════════════════ */
+    section { padding: 120px 0; }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink);
+      border: 1px solid var(--pink);
+      padding: 5px 14px;
+      margin-bottom: 18px;
+    }
+    .section-title {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      line-height: 1.05;
+    }
+    .section-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0 60px;
+    }
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,45,120,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,45,120,0.06) 1px, transparent 1px);
+      background-size: 52px 52px;
+      pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(255,45,120,0.15) 0%, transparent 65%);
+      right: -120px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--pink);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-size: clamp(6rem, 6vw, 6rem);
+      line-height: 0.93;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 28px;
+    }
+    .hero-title .stroke {
+      -webkit-text-stroke: 3px var(--pink);
+      color: transparent;
+    }
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 44px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 56px;
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid #222;
+    }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--pink);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 6px;
+    }
+
+    .hero-mockup {
+      background: var(--card-bg);
+      border: 2px solid var(--pink);
+      padding: 36px;
+      position: relative;
+      width: 100%;
+    }
+    .hero-mockup::after {
+      content: '';
+      position: absolute;
+      top: 10px; left: 10px; right: -10px; bottom: -10px;
+      border: 2px solid #2a2a2a;
+      z-index: -1;
+    }
+    .mockup-dots { display: flex; gap: 8px; margin-bottom: 28px; }
+    .mockup-dot { width: 13px; height: 13px; border-radius: 50%; background: #333; }
+    .mockup-dot.active { background: var(--pink); }
+    .mockup-label { font-size: 0.65rem; color: #444; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 18px; }
+    .mockup-bar { height: 13px; background: #222; margin-bottom: 12px; position: relative; overflow: hidden; }
+    .mockup-bar-fill { position: absolute; top: 0; left: 0; bottom: 0; background: var(--pink); animation: barPulse 2.8s ease-in-out infinite; }
+    .mockup-bar-fill.d2 { animation-delay: 0.5s; }
+    .mockup-bar-fill.d3 { animation-delay: 1s; }
+    @keyframes barPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+    .mockup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
+    .mini-card { background: #1e1e1e; border: 1px solid #2a2a2a; padding: 18px; }
+    .mini-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 4px; }
+    .mini-card span { font-size: 0.78rem; color: var(--muted); }
+
+    /* ══════════════════════════════════════
+       SERVICES
+    ══════════════════════════════════════ */
+    #services { background: var(--off-black); }
+    .service-card {
+      background: var(--card-bg);
+      border: 2px solid #1e1e1e;
+      padding: 40px 36px;
+      height: 100%;
+      position: relative;
+      transition: border-color 0.25s, transform 0.25s;
+      overflow: hidden;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--pink);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover { border-color: var(--pink); transform: translateY(-5px); }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-icon {
+      width: 52px; height: 52px;
+      background: rgba(255,45,120,0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .service-icon svg { width: 26px; height: 26px; stroke: var(--pink); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .service-card h4 { font-size: 1.35rem; color: #fff; margin-bottom: 12px; }
+    .service-card p { font-size: 1rem; color: var(--muted); line-height: 1.65; }
+
+    /* ══════════════════════════════════════
+       CAROUSEL / PORTFOLIO
+    ══════════════════════════════════════ */
+    #portfolio { background: var(--black); }
+    .carousel-inner { border: 2px solid var(--pink); }
+    .portfolio-slide { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
+    .slide-visual { background: #141414; display: flex; align-items: center; justify-content: center; padding: 48px; overflow: hidden; }
+    .slide-info { padding: 60px 56px; display: flex; flex-direction: column; justify-content: center; background: var(--card-bg); }
+    .slide-num { font-family: 'Syne', sans-serif; font-size: 5.5rem; font-weight: 800; color: rgba(255,45,120,0.12); line-height: 1; margin-bottom: 12px; }
+    .slide-info h3 { font-size: 2rem; color: #fff; margin-bottom: 14px; }
+    .slide-info p { font-size: 1rem; color: var(--muted); line-height: 1.65; margin-bottom: 24px; }
+    .slide-tag { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: rgba(255,45,120,0.12); color: var(--pink); padding: 5px 12px; margin-right: 6px; margin-bottom: 6px; }
+    .carousel-control-prev, .carousel-control-next {
+      width: 44px; height: 44px;
+      background: var(--pink);
+      top: 50%; transform: translateY(-50%);
+      opacity: 1; bottom: auto;
+      border-radius: 0;
+    }
+    .carousel-control-prev { left: -22px; }
+    .carousel-control-next { right: -22px; }
+    .carousel-indicators { bottom: -38px; }
+    .carousel-indicators [data-bs-target] { width: 28px; height: 3px; background: #333; opacity: 1; border: none; }
+    .carousel-indicators .active { background: var(--pink); }
+
+    /* Carousel wrapper: large screens get side padding for the protruding arrows */
+    .carousel-col {
+      position: relative;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+    @media (max-width: 767px) {
+      /* On mobile remove side padding — arrows sit inside the slide */
+      .carousel-col {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    .abs-ring { width: 180px; height: 180px; border: 3px solid var(--pink); border-radius: 50%; margin: auto; position: relative; }
+    .abs-ring::before { content: ''; position: absolute; inset: 20px; border: 1px dashed rgba(255,45,120,0.4); border-radius: 50%; animation: spin 10s linear infinite; }
+    .abs-ring::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 44px; height: 44px; background: var(--pink); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .abs-bars { display: flex; align-items: flex-end; gap: 12px; height: 140px; width: 100%; padding: 0 20px; }
+    .abs-bar-item { flex: 1; background: var(--pink); }
+    .abs-mosaic { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; width: 200px; }
+    .abs-cell { aspect-ratio: 1; }
+    .abs-cell.f { background: var(--pink); }
+    .abs-cell.h { background: rgba(255,45,120,0.3); }
+    .abs-cell.e { background: #1e1e1e; border: 1px solid #2a2a2a; }
+
+    /* ══════════════════════════════════════
+       TESTIMONIALS — 3D middle card effect
+    ══════════════════════════════════════ */
+    #testimonials { background: var(--off-black); }
+
+    /* Row alignment so middle card can overflow upward/downward */
+    #testimonials .row.g-4 {
+      align-items: center;
+    }
+
+    .testi-card {
+      background: var(--card-bg);
+      border: 2px solid #1e1e1e;
+      padding: 36px;
+      height: 100%;
+      transition: border-color 0.2s;
+      border-radius: 4px;
+    }
+    .testi-card:hover { border-color: var(--pink); }
+
+    /* Middle card — elevated 3D effect */
+    .testi-card-featured {
+      background: #1a1a1a;
+      border: 2px solid var(--pink);
+      padding: 48px 40px;
+      border-radius: 8px;
+      transform: scale(1.1) translateY(-12px);
+      box-shadow:
+        0 30px 60px rgba(255, 45, 120, 0.25),
+        0 10px 30px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 45, 120, 0.15);
+      position: relative;
+      z-index: 2;
+      transition: border-color 0.2s, box-shadow 0.3s;
+    }
+    .testi-card-featured:hover {
+      box-shadow:
+        0 40px 80px rgba(255, 45, 120, 0.35),
+        0 15px 40px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 45, 120, 0.3);
+    }
+
+    .testi-stars { display: flex; gap: 4px; margin-bottom: 18px; }
+    .testi-star { width: 16px; height: 16px; background: var(--pink); clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
+    .testi-quote { font-size: 1rem; color: #ccc; line-height: 1.7; margin-bottom: 24px; font-style: italic; }
+    .testi-card-featured .testi-quote { font-size: 1.05rem; color: #ddd; }
+    .testi-quote::before { content: '"'; color: var(--pink); font-size: 1.5rem; line-height: 0; vertical-align: -6px; margin-right: 4px; }
+    .testi-quote::after  { content: '"'; color: var(--pink); font-size: 1.5rem; line-height: 0; vertical-align: -6px; margin-left: 4px; }
+    .testi-author { display: flex; align-items: center; gap: 14px; padding-top: 20px; border-top: 1px solid #222; }
+    .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,45,120,0.15); border: 2px solid var(--pink); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 800; color: var(--pink); flex-shrink: 0; }
+    .testi-name { font-weight: 600; color: #fff; font-size: 0.95rem; }
+    .testi-role { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+    /* ══════════════════════════════════════
+       CONTACT / FORM  — fixed overlap + rounded corners
+    ══════════════════════════════════════ */
+    #contact { background: var(--black); }
+
+    /* FIX: ensure the two columns don't overlap on any screen */
+    #contact .row.g-5 {
+      flex-wrap: wrap;
+    }
+    #contact .col-lg-4 {
+      /* Prevent the title from spilling into the form column */
+      overflow: visible;
+      word-break: break-word;
+    }
+    #contact .section-title {
+      /* Clamp title so it stays within its column */
+      font-size: clamp(1rem, 2vw, 3.2rem);
+    }
+
+    .form-wrapper {
+      background: var(--card-bg);
+      border: 2px solid var(--pink);
+      /* ADDED: rounded corners */
+      border-radius: 16px;
+      padding: 56px;
+      position: relative;
+    }
+    .form-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 10px; left: 10px; right: -10px; bottom: -10px;
+      border: 2px solid #222;
+      z-index: -1;
+      /* Match the radius */
+      border-radius: 16px;
+    }
+    .form-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .form-control, .form-select {
+      background: #0f0f0f !important;
+      border: 2px solid #2a2a2a !important;
+      color: #fff !important;
+      border-radius: 8px !important;
+      font-size: 0.95rem !important;
+      font-family: 'DM Sans', sans-serif !important;
+      padding: 14px 18px !important;
+      transition: border-color 0.2s !important;
+    }
+    .form-control:focus, .form-select:focus { box-shadow: none !important; border-color: var(--pink) !important; }
+    .form-control::placeholder { color: #3a3a3a !important; }
+    .form-control.is-invalid, .form-select.is-invalid { border-color: #f87171 !important; }
+    .form-control.is-valid,   .form-select.is-valid   { border-color: #4ade80 !important; }
+    .invalid-feedback { font-size: 0.8rem; color: #f87171; margin-top: 6px; }
+    .valid-feedback   { font-size: 0.8rem; color: #4ade80; margin-top: 6px; }
+    .form-select option { background: #111; }
+    textarea.form-control { resize: vertical; min-height: 140px; }
+    .btn-submit {
+      background: var(--pink);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      border: 2px solid var(--pink);
+      border-radius: 8px;
+      width: 100%;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-submit:hover  { background: transparent; color: var(--pink); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .contact-info-item { margin-bottom: 28px; }
+    .contact-info-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .contact-info-value { font-size: 1rem; color: #fff; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; display: inline-block; margin-right: 8px; animation: pulse 2s ease infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* ══════════════════════════════════════
+       MODAL
+    ══════════════════════════════════════ */
+    .modal-content { background: var(--card-bg) !important; border: 2px solid var(--pink) !important; border-radius: 0 !important; }
+    .modal-header { border-bottom: 2px solid #222 !important; padding: 22px 32px !important; }
+    .modal-title { font-family: 'Syne', sans-serif; font-size: 1.4rem; color: #fff; }
+    .btn-close { filter: invert(1); opacity: 0.5; }
+    .modal-body { padding: 32px !important; }
+    .modal-footer { border-top: 2px solid #222 !important; padding: 18px 32px !important; gap: 12px; }
+    .modal-svc-list { list-style: none; padding: 0; margin: 0; }
+    .modal-svc-list li { padding: 14px 0; border-bottom: 1px solid #1e1e1e; font-size: 0.95rem; color: #bbb; display: flex; align-items: center; gap: 12px; }
+    .modal-svc-list li:last-child { border-bottom: none; }
+    .modal-svc-list li::before { content: ''; width: 6px; height: 6px; background: var(--pink); flex-shrink: 0; }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer { background: var(--black); border-top: 2px solid #1a1a1a; padding: 44px 0; }
+    .footer-brand { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: #fff; }
+    .footer-brand span { color: var(--pink); }
+    .footer-brand span { color: var(--pink); }
+    .footer-links a { font-size: 0.78rem; color: #444; text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--pink); }
+
+    /* ══════════════════════════════════════
+       TOAST NOTIFICATION
+    ══════════════════════════════════════ */
+    #successToast { display: none; position: fixed; top: 90px; right: 28px; z-index: 9999; min-width: 300px; max-width: 400px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.25); overflow: hidden; }
+    .toast-inner { display: flex; align-items: center; padding: 18px 18px 18px 0; gap: 14px; }
+    .toast-bar { width: 8px; align-self: stretch; background: #22c55e; flex-shrink: 0; }
+    .toast-icon { width: 40px; height: 40px; border-radius: 50%; background: #dcfce7; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .toast-text-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: #111; margin-bottom: 3px; }
+    .toast-text-sub { font-size: 0.85rem; color: #666; }
+    .toast-close { background: none; border: none; cursor: pointer; color: #aaa; padding: 4px; margin-left: auto; display: flex; align-items: center; }
+
+    /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up   { animation: fadeUp 0.65s ease both; }
+    .fade-up-2 { animation: fadeUp 0.65s 0.15s ease both; }
+    .fade-up-3 { animation: fadeUp 0.65s 0.3s ease both; }
+    .fade-up-4 { animation: fadeUp 0.65s 0.45s ease both; }
+    @keyframes toastIn  { from { opacity:0; transform:translateX(50px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes toastOut { from { opacity:1; transform:translateX(0); } to { opacity:0; transform:translateX(50px); } }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media (max-width: 991px) {
+      .portfolio-slide { grid-template-columns: 1fr; }
+      .slide-visual { display: none; }
+      .slide-info { padding: 40px 56px; } /* extra side padding to give arrows room */
+      /* Arrows sit inside the slide borders */
+      .carousel-control-prev { left: 0; }
+      .carousel-control-next { right: 0; }
+      .hero-stats { flex-wrap: wrap; gap: 28px; }
+      .form-wrapper { padding: 36px 28px; }
+      /* Reset 3D card on mobile so it doesn't overflow */
+      .testi-card-featured { transform: scale(1) translateY(0); box-shadow: 0 0 0 2px var(--pink); }
+    }
+    @media (max-width: 767px) {
+      /* Remove the outer 32px column padding so carousel fills width */
+      #portfolio .col-12[style] { padding-left: 0 !important; padding-right: 0 !important; }
+      /* Arrows fully inside, overlay on slide content */
+      .carousel-control-prev { left: 0; width: 40px; height: 40px; }
+      .carousel-control-next { right: 0; width: 40px; height: 40px; }
+      /* Push slide text inward so it isn't hidden behind arrows */
+      .slide-info { padding: 32px 52px; }
+    }
+    @media (max-width: 575px) {
+      .hero-title { font-size: 3.5rem; }
+      section { padding: 80px 0; }
+      .btn-pink, .btn-ghost { padding: 14px 28px; font-size: 0.82rem; }
+      .slide-info { padding: 28px 48px; }
+      .slide-num { font-size: 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar navbar-expand-lg" aria-label="Main navigation">
+  <div class="container">
+    <a class="navbar-brand" href="#hero"><span>S</span>trwbr<span>Y</span></a>
+    <button class="navbar-toggler" type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1 py-3 py-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#portfolio">Work</a></li>
+        <li class="nav-item"><a class="nav-link" href="#testimonials">Clients</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <li class="nav-item ms-lg-3">
+          <a class="nav-link btn-nav-cta" href="#contact">Get Started</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <div class="hero-tag fade-up">Creative Digital Studio</div>
+        <h1 class="hero-title fade-up-2">
+          We build<br><span class="stroke">bold</span><br>digital things.
+        </h1>
+        <p class="hero-desc fade-up-3">
+          Full-stack design and development studio crafting digital experiences that are hard to forget and impossible to ignore.
+        </p>
+        <div class="d-flex flex-wrap gap-3 fade-up-4">
+          <button class="btn-pink" data-bs-toggle="modal" data-bs-target="#servicesModal">
+            Explore Services
+          </button>
+          <a class="btn-ghost" href="#portfolio">See Our Work</a>
+        </div>
+        <div class="hero-stats fade-up-4">
+          <div>
+            <div class="stat-num">80+</div>
+            <div class="stat-label">Projects Done</div>
+          </div>
+          <div>
+            <div class="stat-num">5yr</div>
+            <div class="stat-label">In Business</div>
+          </div>
+          <div>
+            <div class="stat-num">98%</div>
+            <div class="stat-label">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5 d-flex align-items-center justify-content-center">
+        <div class="hero-mockup">
+          <div class="mockup-dots">
+            <div class="mockup-dot active"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+          </div>
+          <div class="mockup-label">Live Dashboard Preview</div>
+          <div class="mockup-bar"><div class="mockup-bar-fill" style="width:76%"></div></div>
+          <div class="mockup-bar"><div class="mockup-bar-fill d2" style="width:52%"></div></div>
+          <div class="mockup-bar"><div class="mockup-bar-fill d3" style="width:89%"></div></div>
+          <div class="mockup-grid">
+            <div class="mini-card"><strong>+24%</strong><span>Growth</span></div>
+            <div class="mini-card"><strong>142</strong><span>Active Users</span></div>
+            <div class="mini-card"><strong>9.1</strong><span>Score</span></div>
+            <div class="mini-card"><strong>✓</strong><span>All Systems</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<section id="services">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-8">
+        <div class="section-tag">What We Do</div>
+        <h2 class="section-title">Services built for impact.</h2>
+        <p class="section-sub">Every project starts with intent. We make sure your digital product earns its place in the world.</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-3">
+        <div class="service-card h-100">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <h4>Web Design</h4>
+          <p>Pixel-perfect interfaces that stop the scroll and drive the click.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="service-card h-100">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h4>Development</h4>
+          <p>Fast, clean, accessible code across the full stack — front to back.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="service-card h-100">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h4>Brand Identity</h4>
+          <p>Strategy-led branding that builds trust and recognition from day one.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="service-card h-100">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h4>SEO & Growth</h4>
+          <p>Organic visibility strategies that compound over time and scale.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PORTFOLIO CAROUSEL ═══════════ -->
+<section id="portfolio">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-7">
+        <div class="section-tag">Selected Work</div>
+        <h2 class="section-title">Projects we're proud of.</h2>
+        <p class="section-sub">A few case studies from across industries. Use the arrows to browse.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 carousel-col">
+        <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#portfolioCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
+            <button type="button" data-bs-target="#portfolioCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#portfolioCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="portfolio-slide">
+                <div class="slide-visual"><div class="abs-ring"></div></div>
+                <div class="slide-info">
+                  <div class="slide-num">01</div>
+                  <h3>Orion E-Commerce</h3>
+                  <p>A headless commerce platform for a luxury fashion brand. Rebuilt the conversion funnel from scratch, resulting in a 44% lift in checkout completion.</p>
+                  <div><span class="slide-tag">Next.js</span><span class="slide-tag">Shopify</span><span class="slide-tag">Figma</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="portfolio-slide">
+                <div class="slide-visual">
+                  <div class="abs-bars">
+                    <div class="abs-bar-item" style="height:50%"></div>
+                    <div class="abs-bar-item" style="height:100%"></div>
+                    <div class="abs-bar-item" style="height:72%"></div>
+                    <div class="abs-bar-item" style="height:38%"></div>
+                    <div class="abs-bar-item" style="height:88%"></div>
+                  </div>
+                </div>
+                <div class="slide-info">
+                  <div class="slide-num">02</div>
+                  <h3>Vanta Analytics</h3>
+                  <p>Real-time data dashboard for a fintech startup. Designed and shipped in 6 weeks, handling over 2M data points daily with sub-second render times.</p>
+                  <div><span class="slide-tag">React</span><span class="slide-tag">D3.js</span><span class="slide-tag">Node.js</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="portfolio-slide">
+                <div class="slide-visual">
+                  <div class="abs-mosaic">
+                    <div class="abs-cell f"></div><div class="abs-cell h"></div><div class="abs-cell e"></div>
+                    <div class="abs-cell h"></div><div class="abs-cell f"></div><div class="abs-cell h"></div>
+                    <div class="abs-cell e"></div><div class="abs-cell h"></div><div class="abs-cell f"></div>
+                  </div>
+                </div>
+                <div class="slide-info">
+                  <div class="slide-num">03</div>
+                  <h3>Muse Brand System</h3>
+                  <p>Full identity overhaul for an independent music label — logo, color language, type system, social templates, and a live component library.</p>
+                  <div><span class="slide-tag">Brand</span><span class="slide-tag">Figma</span><span class="slide-tag">Storybook</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev" aria-label="Previous slide">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next" aria-label="Next slide">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section id="testimonials">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-8">
+        <div class="section-tag">Social Proof</div>
+        <h2 class="section-title">What clients are saying.</h2>
+        <p class="section-sub">Real feedback from real partners. We let results do the talking.</p>
+      </div>
+    </div>
+    <!-- Extra vertical padding so the scaled middle card doesn't clip -->
+    <div class="row g-4 align-items-center" style="padding: 20px 0 32px;">
+      <!-- Card 1 — normal -->
+      <div class="col-md-4">
+        <div class="testi-card h-100">
+          <div class="testi-stars">
+            <div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div>
+          </div>
+          <p class="testi-quote">StrwbrY completely transformed our online presence. The attention to detail and the speed of delivery were unlike anything I'd seen from an agency before.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">MR</div>
+            <div>
+              <div class="testi-name">Maya Reyes</div>
+              <div class="testi-role">CEO, NovaCo Philippines</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 — FEATURED / 3D elevated -->
+      <div class="col-md-4">
+        <div class="testi-card testi-card-featured">
+          <div class="testi-stars">
+            <div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div>
+          </div>
+          <p class="testi-quote">Our checkout conversion went up 44% after launch. I was skeptical at first, but the results speak for themselves. Highly recommended.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">JL</div>
+            <div>
+              <div class="testi-name">James Lim</div>
+              <div class="testi-role">Founder, Orion Fashion</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 — normal -->
+      <div class="col-md-4">
+        <div class="testi-card h-100">
+          <div class="testi-stars">
+            <div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div>
+          </div>
+          <p class="testi-quote">The brand system they created for Muse is exactly what we needed — bold, consistent, and built to scale. Every asset was delivered clean and on time.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">SV</div>
+            <div>
+              <div class="testi-name">Sofia Vargas</div>
+              <div class="testi-role">Creative Director, Muse Records</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT FORM ═══════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+      <!-- Sidebar info -->
+      <div class="col-lg-4">
+        <div class="section-tag">Get In Touch</div>
+        <h2 class="section-title">Let's start something.</h2>
+        <p class="section-sub" style="margin-bottom:40px;">Tell us about your project. We respond within 24 hours.</p>
+        <div class="contact-info-item">
+          <div class="contact-info-label">Email</div>
+          <div class="contact-info-value">hello@strwbry.studio</div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-label">Based In</div>
+          <div class="contact-info-value">Manila, Philippines</div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-label">Availability</div>
+          <div class="contact-info-value" style="color:#4ade80;">
+            <span class="status-dot"></span>Open to new projects
+          </div>
+        </div>
+      </div>
+      <!-- Form -->
+      <div class="col-lg-8">
+        <div class="form-wrapper">
+          <form id="contactForm" novalidate>
+            <div class="row g-4">
+              <div class="col-sm-6">
+                <label class="form-label" for="fname">First Name</label>
+                <input type="text" class="form-control" id="fname" placeholder="Maria" required minlength="2" />
+                <div class="invalid-feedback">Please enter at least 2 characters.</div>
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="lname">Last Name</label>
+                <input type="text" class="form-control" id="lname" placeholder="Santos" required minlength="2" />
+                <div class="invalid-feedback">Please enter at least 2 characters.</div>
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="maria@company.com" required />
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="service">Service Needed</label>
+                <select class="form-select" id="service" required>
+                  <option value="" disabled selected>Select a service…</option>
+                  <option value="design">Web Design</option>
+                  <option value="dev">Development</option>
+                  <option value="brand">Brand Identity</option>
+                  <option value="seo">SEO & Growth</option>
+                  <option value="other">Other</option>
+                </select>
+                <div class="invalid-feedback">Please select a service.</div>
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="message">Project Brief</label>
+                <textarea class="form-control" id="message" placeholder="Tell us about your project, goals, timeline, and budget…" required minlength="20"></textarea>
+                <div class="invalid-feedback">Please write at least 20 characters.</div>
+                <div class="valid-feedback">Great brief!</div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn-submit" id="submitBtn">Send Message →</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-5 mb-3 mb-md-0">
+        <div class="footer-brand"><span>S</span>trwbr<span>Y</span></div>
+        <div style="font-size:0.8rem;color:#444;margin-top:6px;">© 2025 StrwbrY Studio. All rights reserved.</div>
+      </div>
+      <div class="col-md-7">
+        <div class="footer-links d-flex flex-wrap gap-4 justify-content-md-end">
+          <a href="#hero">Home</a>
+          <a href="#services">Services</a>
+          <a href="#portfolio">Work</a>
+          <a href="#testimonials">Clients</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ SERVICES MODAL ═══════════ -->
+<div class="modal fade" id="servicesModal" tabindex="-1" aria-labelledby="servicesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="servicesModalLabel">Full Service List</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:20px;">Everything we can help you with. Every engagement includes a free strategy consultation.</p>
+        <ul class="modal-svc-list">
+          <li>UI/UX Design & Prototyping</li>
+          <li>Custom Website Development</li>
+          <li>E-Commerce Build & Optimization</li>
+          <li>Brand Identity & Design Systems</li>
+          <li>SEO Strategy & Implementation</li>
+          <li>Performance Audits & Refactors</li>
+          <li>Ongoing Retainer Support</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-ghost" style="padding:10px 24px;font-size:0.82rem;" data-bs-dismiss="modal">Close</button>
+        <a href="#contact" class="btn-pink" style="padding:10px 24px;font-size:0.82rem;" data-bs-dismiss="modal">Start a Project →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SUCCESS TOAST ═══════════ -->
+<div id="successToast" role="alert" aria-live="polite">
+  <div class="toast-inner">
+    <div class="toast-bar"></div>
+    <div class="toast-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="9 12 11.5 14.5 15.5 9.5"/>
+      </svg>
+    </div>
+    <div>
+      <div class="toast-text-title">Message Sent!</div>
+      <div class="toast-text-sub">We'll get back to you within 24hrs.</div>
+    </div>
+    <button class="toast-close" onclick="closeToast()" aria-label="Close notification">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const form      = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const toast     = document.getElementById('successToast');
+  let toastTimer;
+
+  function validateField(field) {
+    const val = field.value.trim();
+    let valid = false;
+    if (field.type === 'email') {
+      valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    } else if (field.tagName === 'SELECT') {
+      valid = val !== '';
+    } else if (field.minLength > 0) {
+      valid = val.length >= field.minLength;
+    } else {
+      valid = val.length > 0;
+    }
+    field.classList.remove('is-valid', 'is-invalid');
+    field.classList.add(valid ? 'is-valid' : 'is-invalid');
+    return valid;
+  }
+
+  form.querySelectorAll('input, select, textarea').forEach(field => {
+    field.addEventListener('blur',  () => validateField(field));
+    field.addEventListener('input', () => {
+      if (field.classList.contains('is-invalid')) validateField(field);
+    });
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const fields = form.querySelectorAll('input, select, textarea');
+    let allValid = true;
+    fields.forEach(f => { if (!validateField(f)) allValid = false; });
+    if (!allValid) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Message →';
+      form.reset();
+      fields.forEach(f => f.classList.remove('is-valid', 'is-invalid'));
+      showToast();
+    }, 1000);
+  });
+
+  function showToast() {
+    toast.style.display = 'block';
+    toast.style.animation = 'toastIn 0.4s cubic-bezier(0.22,1,0.36,1) both';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(closeToast, 5000);
+  }
+  function closeToast() {
+    toast.style.animation = 'toastOut 0.3s ease forwards';
+    setTimeout(() => { toast.style.display = 'none'; }, 320);
+  }
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks  = document.querySelectorAll('.nav-link[href^="#"]');
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => sectionObserver.observe(s));
+</script>
+</body>
+</html>
